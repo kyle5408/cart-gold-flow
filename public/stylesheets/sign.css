@@ -35,7 +35,6 @@ label {
 }
 
 .other-login {
-  display: flex;
   justify-content: space-between;
   max-width: 20vw;
   margin: 1vw auto;
@@ -76,7 +75,26 @@ button a:hover {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .btn-facebook {
   background-color: #3b5998;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-google {
+  background-color: #CA3E47;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+i {
+  margin-right: 1vw;
 }
