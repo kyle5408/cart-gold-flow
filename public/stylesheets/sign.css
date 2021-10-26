@@ -1,0 +1,52 @@
+.sign-body {
+  position: relative;
+  text-align: center;
+}
+
+label {
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin: 1vw;
+}
+
+.account {
+  max-width: 20vw;
+  margin: auto;
+}
+
+.password {
+  max-width: 20vw;
+  margin: auto;
+}
+
+.sign-login-button {
+  display: flex;
+  justify-content: space-between;
+  max-width: 20vw;
+  margin: 1vw auto;
+}
+
+.sign-login-button .btn {
+  margin: 0;
+  font-size: 1vw;
+  width: 8vw;
+}
+
+.other-login {
+  display: flex;
+  justify-content: space-between;
+  max-width: 20vw;
+  margin: 1vw auto;
+}
+
+.other-login .btn {
+  margin: 0;
+  width: 20vw;
+  font-size: 1vw;
+}
+
+hr.style-one {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}

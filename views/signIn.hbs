@@ -1,1 +1,49 @@
-test
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/sign.css">
+
+<div class="sign-body">
+  <div class="account-password">
+    <label for="account">Account</label>
+    <div class="account">
+      <input type="text" name="account" class="form-control" id="account" placeholder="帳號" aria-label="account"
+        data-minleng="5">
+      <div class="invalid-feedback">
+        帳號不得為空
+      </div>
+    </div>
+
+    <label for="password">Password</label>
+    <div class="password">
+      <input type="password" name="password" id="password" class="form-control" placeholder="密碼" aria-label="password">
+      <div class="invalid-feedback">密碼不得為空</div>
+    </div>
+  </div>
+</div>
+
+<div class="sign-login-button">
+  <button type="button" class="btn btn-secondary">Sign up</button>
+  <button type="submit" class="btn btn-secondary signin-button">Log in</button>
+</div>
+
+<hr class="style-one" />
+
+<div class="other-login">
+  <button type="button" class="btn btn-secondary">Facebook</button>
+</div>
+</div>
+
+<script>
+  const account = document.querySelector("#account")
+  const password = document.querySelector("#password")
+  const signButton = document.querySelector(".signin-button")
+  signButton.addEventListener("click", function check(event) {
+    if (account.value.length < 1) {
+      account.classList.add("is-invalid")
+      event.preventDefault()
+    }
+    if (password.value.length < 1) {
+      password.classList.add("is-invalid")
+      event.preventDefault()
+    }
+  })
+</script>
