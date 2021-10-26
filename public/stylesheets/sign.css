@@ -75,3 +75,8 @@ button a:hover {
   color: white;
   text-decoration: none;
 }
+
+.btn-facebook {
+  background-color: #3b5998;
+  color: white;
+}

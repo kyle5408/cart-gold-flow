@@ -1,10 +1,11 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
 
-  //本地登入策略
+//本地登入策略
 passport.use(new LocalStrategy(
   {
     usernameField: 'account',
@@ -14,8 +15,9 @@ passport.use(new LocalStrategy(
   (req, username, password, cb) => {
     User.findOne({ where: { email: username } })
       .then(user => {
-        if (!user) { 
-          return cb(null, false, req.flash('error_messages', "Account doesn't exist！"))}
+        if (!user) {
+          return cb(null, false, req.flash('error_messages', "Account doesn't exist！"))
+        }
         if (!bcrypt.compareSync(password, user.password)) return cb(null, false, req.flash('error_messages', 'Password is wrong!'))
         return cb(null, user)
       })
@@ -23,17 +25,43 @@ passport.use(new LocalStrategy(
   }
 ))
 
+//Facebook登入策略
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_ID,
+  clientSecret: process.env.FACEBOOK_SECRET,
+  callbackURL: process.env.FACEBOOK_CALLBACK,
+  profileFields: ['email', 'displayName']
+}, async (accessToken, refreshToken, profile, done) => {
+  const { name, email } = profile._json
+  User.findOne({ where: { email } })
+    .then(user => {
+      if (user) return done(null, user)
+      console.log(user)
+      const randomPassword = Math.random().toString(36).slice(-8)
+      bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(randomPassword, salt))
+        .then(hash => User.create({
+          name,
+          email,
+          password: hash
+        }))
+        .then(user => done(null, user))
+        .catch(err => done(err, false))
+    })
+}))
+
 //序列化及反序列化
 passport.serializeUser((user, cb) => {
   cb(null, user.id)
 })
-passport.deserializeUser(async(id, cb) => {
+passport.deserializeUser(async (id, cb) => {
   try {
     const user = await User.findByPk(id)
     const userToJSON = await user.toJSON()
     return cb(null, userToJSON)
   } catch (error) {
-    res.render('signIn', { Error })
+    res.render('signIn', { error })
   }
 })
 
