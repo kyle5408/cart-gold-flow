@@ -1,11 +1,5 @@
-const express = require('express')
-const router = express.Router()
-const users = require('./models/users.js')
+const routes = require('./routes.js')
 
-router.get('/', (req, res) => {
-  res.render('signIn')
-})
-
-router.use('/users', users)
-
-module.exports = router
+module.exports = (app) => {
+  app.use('/', routes);
+}
