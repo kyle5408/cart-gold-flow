@@ -15,8 +15,8 @@ passport.use(new LocalStrategy(
     User.findOne({ where: { email: username } })
       .then(user => {
         if (!user) { 
-          return cb(null, false, req.flash('error_messages', '帳號不存在！'))}
-        if (!bcrypt.compareSync(password, user.password)) return cb(null, false, req.flash('error_messages', '密碼輸入錯誤!'))
+          return cb(null, false, req.flash('error_messages', "Account doesn't exist！"))}
+        if (!bcrypt.compareSync(password, user.password)) return cb(null, false, req.flash('error_messages', 'Password is wrong!'))
         return cb(null, user)
       })
       .catch(err => cb(err, false))

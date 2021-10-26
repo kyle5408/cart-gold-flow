@@ -1,6 +1,8 @@
 .sign-body {
   position: relative;
   text-align: center;
+  max-width: 20vw;
+  margin: auto;
 }
 
 label {
@@ -49,4 +51,27 @@ hr.style-one {
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+.sign-title {
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin: 1vw;
+}
+
+.signup-button {
+  color: white;
+}
+
+.text-link {
+  margin-top: 1vw;
+}
+
+button a {
+  color: white;
+}
+
+button a:hover {
+  color: white;
+  text-decoration: none;
 }

@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/sign.css">
+
+<form action="/signup" method="POST" data-toggle="validator">
+  <div class="sign-body">
+
+    <div class="sign-title">
+      Create Account
+    </div>
+
+    <div class="register-from">
+      <div class="mt-4">
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email" aria-label="email" value="{{email}}">
+        <div class="invalid-feedback">
+          Email is required field.
+        </div>
+      </div>
+      <div class="mt-4">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Name" aria-label="name" data-maxleng="50" value="{{name}}">
+        <div class="invalid-feedback">
+          Name can't exceed 50 words.
+        </div>
+      </div>
+      <div class="mt-4">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" aria-label="password" value="{{password}}">
+        <div class="invalid-feedback">
+        </div>
+      </div>
+      <div class="mt-4">
+        <input type="password" name="checkPassword" id="checkPassword" class="form-control" placeholder="Confirm-Password" aria-label="checkPassword"  value="{{checkPassword}}">
+        <div class="invalid-feedback">
+          Password and confirm password are different.
+        </div>
+      </div>
+    </div>
+
+    <div class="text-align-center mt-4">
+      <button type="submit" class="btn signup-button">Register</button>
+    </div>
+
+    <div class="text-link">
+      <a href="/signin" style="text-decoration:underline;">Cancel</a>
+    </div>
+
+  </div>
+</form>
+
+<script>
+  const name = document.querySelector("#name")
+  const email = document.querySelector("#email")
+  const password = document.querySelector("#password")
+  const checkPassword = document.querySelector("#checkPassword")
+  const signButton = document.querySelector(".signup-button")
+  signButton.addEventListener("click", function check(event) {
+    if (name.value.length > 50) {
+      event.preventDefault()
+      name.classList.add("is-invalid")
+    }
+    if (email.value.length < 1) {
+      email.classList.add("is-invalid")
+      event.preventDefault()
+    }
+
+    if (password.value.length < 1) {
+      password.classList.add("is-invalid")
+      password.nextElementSibling.innerHTML = "Password can't be empty."
+      event.preventDefault()
+    }
+    if (password.value !== checkPassword.value) {
+      password.classList.remove("is-invalid")
+      checkPassword.classList.add("is-invalid")
+      event.preventDefault()
+    }
+
+  })
+</script>

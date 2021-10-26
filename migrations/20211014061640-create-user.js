@@ -11,11 +11,15 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
+      name: {
+        type: Sequelize.STRING
+      },
       password: {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'normal'
       },
       createdAt: {
         allowNull: false,
