@@ -1,5 +1,7 @@
 .wrap {
   padding: 0px;
+  max-width: 80vw;
+  margin: auto;
 }
 
 .nav {
@@ -19,7 +21,7 @@
 .production-name-t, .image-t, .price-t, .option-t, .description-t {
   background-color: #313131;
   border: solid 2px white;
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: white;
   text-align: center;
 }
@@ -32,13 +34,17 @@
 .production-name, .image, .price, .option, .description{
   background-color:	#F0F0F0;
   border: solid 2px white;
-  font-size: 1.5vw;
+  font-size: 1vw;
 }
 
 .production-name, .image, .price, .description {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.production-name {
+  font-weight: bold;
 }
 
 .option {
@@ -50,4 +56,13 @@
 .products img{
   height: 5vw;
   width: 5vw;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  font-size: 1vw;
+  font-weight: bold;
 }
