@@ -4,7 +4,7 @@
 <form action="/signin" method="POST" data-toggle="validator">
   <div class="sign-body">
     <div class="account-password">
-      <label for="account">Account</label>
+      <label for="account">Admin Account</label>
       <div class="account">
         <input type="text" name="account" class="form-control" id="account" placeholder="帳號" aria-label="account"
           data-minleng="5">
@@ -22,38 +22,20 @@
     </div>
   </div>
 
-  <div class="sign-login-button">
-    <button type="button" class="btn btn-secondary">
-      <a href="/signup">Sign up</a>
-    </button>
+  <div class="sign-login-button" style="justify-content: center;">
     <button type="submit" class="btn btn-secondary signin-button">Log in</button>
   </div>
 
   <hr class="style-one" />
 
   <div class="other-login">
-    <div class="facebook">
-      <a href="/auth/facebook">
-        <button type="button" class="btn btn-primary btn-facebook">
-          <i class="fab fa-facebook"></i>Facebook
+    <div class="user mt-2">
+      <a href="/signin">
+        <button type="button" class="btn btn-secondary btn-user">
+          <i class="fas fa-users"></i>User Login
         </button>
       </a>
     </div>
-    <div class="google mt-2">
-      <a href="/auth/google">
-        <button type="button" class="btn btn-danger btn-google">
-          <i class="fab fa-google"></i>Google
-        </button>
-      </a>
-    </div>
-
-      <div class="admin mt-2">
-        <a href="/admin/signin">
-          <button type="button" class="btn btn-secondary btn-admin">
-            <i class="fas fa-users-cog"></i>Admin Login
-          </button>
-        </a>
-      </div>
   </div>
   </div>
 </form>

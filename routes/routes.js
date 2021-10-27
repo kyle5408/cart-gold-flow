@@ -15,4 +15,6 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
+
+
 module.exports = router

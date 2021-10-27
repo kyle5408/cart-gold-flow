@@ -21,7 +21,6 @@ const userController = {
 
   //註冊
   signUp: async (req, res) => {
-
     try {
       const { email, name, password, checkPassword } = req.body
       if (!name || name.length > 50 || !email || checkPassword !== password) {
@@ -33,7 +32,6 @@ const userController = {
         req.flash('error_messages', 'Account already be registered！')
         return res.render('signup', { email, name, password, checkPassword })
       }
-
       await User.create({
         email,
         name,
