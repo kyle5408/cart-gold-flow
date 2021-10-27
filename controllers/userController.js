@@ -44,6 +44,11 @@ const userController = {
       res.render('signIn', { Error })
     }
   },
+
+  //首頁
+  getUserIndex: (req, res) => {
+    return res.render('index')
+  }
 }
 
 module.exports = userController
