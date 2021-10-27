@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/adminIndex.css">
+
+<div class="wrap col-md-12 col-sm-12">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="/admin/products">Product</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/orders">Order</a>
+    </li>
+  </ul>
+
+  <a href='/admin/rproducts/create'>
+    <button type="button" class="btn btn-secondary new-product-btn mt-4">Add New Product</button>
+  </a>
+
+  <div class="product-title col-md-12">
+    <div class="production-name-t col-md-3">Production Name</div>
+    <div class="image-t col-md-1">Image</div>
+    <div class="price-t col-md-2">Price</div>
+    <div class="description-t col-md-4">Description</div>
+    <div class="option-t col-md-2">Option</div>
+  </div>
+
+  {{#each products}}
+  <div class="products">
+    <div class="production-name col-md-3">{{this.name}}</div>
+    <div class="image col-md-1">
+      <img src="{{this.image}}" alt="無法顯示圖片">
+    </div>
+    <div class="price col-md-2">{{this.price}}</div>
+    <div class="description col-md-4">
+      {{this.description}}
+    </div>
+    <div class="option col-md-2">
+      <a href="">Edit</a>
+      <a href="">
+        <i class="fas fa-trash-alt"></i>
+      </a>
+    </div>
+  </div>
+  {{/each}}
+
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="/admin/products?page={{prev}}">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {{#each totalPage}}
+      {{#ifCond this ../pageNow}}
+      <li class="page-item active"><a class="page-link" href="/admin/products?page={{this}}">{{this}}</a></li>
+      {{else}}
+      <li class="page-item"><a class="page-link" href="/admin/products?page={{this}}">{{this}}</a>
+      </li>
+      {{/ifCond}}
+      {{/each}}
+      <li class="page-item">
+        <a class="page-link" href="/admin/products?page={{next}}">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+</div>

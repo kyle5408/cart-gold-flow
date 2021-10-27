@@ -6,6 +6,10 @@ const userController = require('../controllers/userController')
 const adminController = require('../controllers/adminController')
 const user = require('../models/user')
 
+router.get('/', (req, res) => {
+  res.render('admin/adminIndex')
+})
+
 //使用者登入頁面
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
@@ -14,15 +18,15 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-//使用者首頁
-router.get('/', login.authenticated, userController.getUserIndex)
+// //使用者首頁
+// router.get('/', login.authenticated, userController.getUserIndex)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
 router.post('/admin/signin', passport.authenticate('local', { failureRedirect: '/admin/signin', failureFlash: true }), adminController.signIn)
 
 //管理者首頁
-router.get('/admin/', login.authenticatedAdmin, adminController.getAdminIndex)
+router.get('/admin/products', login.authenticatedAdmin, adminController.getAdminIndex)
 
 
 module.exports = router

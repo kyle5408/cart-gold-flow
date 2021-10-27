@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const passport = require('./config/passport')
 
-app.engine('hbs', exhbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exhbs({ defaultLayout: 'main', extname: '.hbs', helpers: require('./config/handlebars_helpers') }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
