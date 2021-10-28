@@ -22,21 +22,14 @@ const adminController = {
 
   //商品頁
   getAdminProducts: async (req, res) => {
-    let offset = 0
-    if (req.query.page) {
-      offset = (req.query.page - 1) * pageLimit
-    }
+    let offset = await pagination.getOffset(req, pageLimit)
     const products = await Product.findAndCountAll({
       offset: offset,
       limit: pageLimit,
       raw: true,
       nest: true
     })
-    const page = Number(req.query.page) || 1
-    const pages = Math.ceil(products.count / pageLimit)
-    const totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
-    const prev = page - 1 < 1 ? 1 : page - 1
-    const next = page + 1 > pages ? pages : page + 1
+    const { page, totalPage, prev, next } = await pagination.paginate(req, products.count, pageLimit)
     return res.render('admin/adminProducts', {
       products: products.rows,
       page,
@@ -49,21 +42,14 @@ const adminController = {
 
   //訂單頁
   getAdminOrders: async (req, res) => {
-    let offset = 0
-    if (req.query.page) {
-      offset = (req.query.page - 1) * pageLimit
-    }
+    let offset = await pagination.getOffset(req, pageLimit)
     const orders = await Order.findAndCountAll({
       offset: offset,
       limit: pageLimit,
       raw: true,
       nest: true
     })
-    const page = Number(req.query.page) || 1
-    const pages = Math.ceil(orders.count / pageLimit)
-    const totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
-    const prev = page - 1 < 1 ? 1 : page - 1
-    const next = page + 1 > pages ? pages : page + 1
+    const { page, totalPage, prev, next } = await pagination.paginate(req, orders.count, pageLimit)
     return res.render('admin/adminOrders', {
       orders: orders.rows,
       page,
@@ -74,7 +60,7 @@ const adminController = {
   },
 
 
-  
+
 
 }
 
