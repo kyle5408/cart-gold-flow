@@ -39,6 +39,11 @@ const adminController = {
     })
   },
 
+  //單一商品
+  getAdminProduct: async (req, res) => {
+    const product = await Product.findByPk(req.params.id, { raw: true, nest: true })
+    return res.render('admin/adminProduct', { product })
+  },
 
   //訂單頁
   getAdminOrders: async (req, res) => {
