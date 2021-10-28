@@ -25,8 +25,11 @@ router.post('/signup', userController.signUp)
 router.get('/admin/signin', adminController.signInPage)
 router.post('/admin/signin', passport.authenticate('local', { failureRedirect: '/admin/signin', failureFlash: true }), adminController.signIn)
 
-//管理者首頁
-router.get('/admin/products', login.authenticatedAdmin, adminController.getAdminIndex)
+//管理者首頁(商品頁)
+router.get('/admin/products', login.authenticatedAdmin, adminController.getAdminProducts)
+
+//管理者訂單頁面
+router.get('/admin/orders', login.authenticatedAdmin, adminController.getAdminOrders)
 
 
 module.exports = router

@@ -1,0 +1,50 @@
+.wrap {
+  padding: 0px;
+  max-width: 80vw;
+  margin: auto;
+}
+
+.nav {
+  margin-top: 2vw;
+}
+
+.order-title {
+  display: flex;
+  padding: 0px;
+  margin: 1vw 0px 0px 0px;
+}
+
+.orders {
+  display: flex;
+  padding: 0px;
+}
+
+.order-number-t, .payment-status-t, .price-t, .shipping-status-t, .order-detail-t {
+  background-color: #313131;
+  border: solid 2px white;
+  font-size: 1vw;
+  color: white;
+  text-align: center;
+}
+
+.order-number, .payment-status, .price, .shipping-status, .order-detail {
+  background-color:	#F0F0F0;
+  border: solid 2px white;
+  font-size: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-number {
+  font-weight: bold;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  font-size: 1vw;
+  font-weight: bold;
+}

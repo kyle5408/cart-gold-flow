@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/adminOrders.css">
+
+<div class="wrap col-md-12 col-sm-12">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/products">Product</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/admin/orders">Order</a>
+    </li>
+  </ul>
+
+  <div class="order-title col-md-9">
+    <div class="order-number-t col-md-2">Order Number</div>
+    <div class="price-t col-md-1">Price</div>
+    <div class="payment-status-t col-md-2">Payment Status</div>
+    <div class="shipping-status-t col-md-2">Shipping Status</div>
+    <div class="order-detail-t col-md-2">Order Detail</div>
+  </div>
+
+  {{#each orders}}
+  <div class="orders col-md-9">
+    <div class="order-number col-md-2">#{{this.id}}</div>
+    <div class="price col-md-1">${{this.price}}</div>
+    <div class="payment-status col-md-2">{{this.payment_status}}</div>
+    <div class="shipping-status col-md-2">{{this.shipping_status}}</div>
+    <div class="order-detail col-md-2">
+      <a href="">Edit Detail</a>
+    </div>
+  </div>
+  {{/each}}
+
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="/admin/orders?page={{prev}}">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {{#each totalPage}}
+      {{#ifCond this ../pageNow}}
+      <li class="page-item active"><a class="page-link" href="/admin/orders?page={{this}}">{{this}}</a></li>
+      {{else}}
+      <li class="page-item"><a class="page-link" href="/admin/orders?page={{this}}">{{this}}</a>
+      </li>
+      {{/ifCond}}
+      {{/each}}
+      <li class="page-item">
+        <a class="page-link" href="/admin/orders?page={{next}}">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+</div>
