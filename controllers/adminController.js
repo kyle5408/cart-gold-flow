@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
+const fs = require('fs')
 const db = require('../models')
 const User = db.User
 const Product = db.Product
@@ -43,6 +44,27 @@ const adminController = {
   getAdminProduct: async (req, res) => {
     const product = await Product.findByPk(req.params.id, { raw: true, nest: true })
     return res.render('admin/adminProduct', { product })
+  },
+
+  //編輯商品
+  putAdminProduct: async (req, res) => {
+    const { name, description, price } = req.body
+    const product = await Product.findByPk(req.params.id)
+    const { file } = req
+    if (file) {
+      await fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return
+        })
+      })
+    }
+    await product.update({
+      name,
+      description,
+      price,
+      image: req.file ? `/upload/${file.originalname}` : product.image
+    })
   },
 
   //訂單頁

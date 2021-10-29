@@ -9,7 +9,7 @@ const adminController = require('../controllers/adminController')
 const user = require('../models/user')
 
 router.get('/', (req, res) => {
-  res.render('admin/adminIndex')
+  res.redirect('/admin/products')
 })
 
 //使用者登入頁面
@@ -35,6 +35,6 @@ router.get('/admin/orders', login.authenticatedAdmin, adminController.getAdminOr
 
 //管理者商品頁
 router.get('/admin/products/:id', login.authenticatedAdmin, adminController.getAdminProduct)
-// router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image'),adminController.putAdminProduct)
+router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image'),adminController.putAdminProduct)
 
 module.exports = router
