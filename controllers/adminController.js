@@ -67,6 +67,13 @@ const adminController = {
     })
   },
 
+  //刪除商品
+  deleteProduct: async(req, res) => {
+    const product = await Product.findByPk(req.params.id)
+    await product.destroy()
+    return res.redirect('/admin/products')
+  },
+
   //訂單頁
   getAdminOrders: async (req, res) => {
     let offset = await pagination.getOffset(req, pageLimit)

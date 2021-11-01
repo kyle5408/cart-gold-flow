@@ -37,4 +37,7 @@ router.get('/admin/orders', login.authenticatedAdmin, adminController.getAdminOr
 router.get('/admin/products/:id', login.authenticatedAdmin, adminController.getAdminProduct)
 router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image'),adminController.putAdminProduct)
 
+//管理者刪除商品
+router.delete('/admin/products/:id', login.authenticatedAdmin, adminController.deleteProduct)
+
 module.exports = router

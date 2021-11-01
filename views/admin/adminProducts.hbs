@@ -35,9 +35,11 @@
     </div>
     <div class="option col-md-2">
       <a href="/admin/products/{{this.id}}">Edit</a>
-      <a href="">
-        <i class="fas fa-trash-alt"></i>
-      </a>
+      <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST">
+        <button class="delete-btn" type="submit">
+          <i class="fas fa-trash-alt"></i>
+          </button>
+      </form>
     </div>
   </div>
   {{/each}}
