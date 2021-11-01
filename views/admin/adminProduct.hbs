@@ -1,71 +1,106 @@
 <link rel="stylesheet" href="/stylesheets/style.css">
 <link rel="stylesheet" href="/stylesheets/adminProduct.css">
 
+{{#if product}}
 <form action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
-  <div class="wrap col-md-12 col-sm-12">
+  {{else}}
+  <form action="/admin/products" method="POST" enctype="multipart/form-data">
+    {{/if}}
 
-    <div class="product">
-      <div class="edit-title">
-        <a href="javascript:history.back()">
-          <div class="back-icon mr-4">
-            <i class="fas fa-arrow-circle-left"></i>
+    <div class="wrap col-md-12 col-sm-12">
+
+      <div class="product">
+        <div class="edit-title">
+          <a href="javascript:history.back()">
+            <div class="back-icon mr-4">
+              <i class="fas fa-arrow-circle-left"></i>
+            </div>
+          </a>
+          Edit Product
+        </div>
+        {{#if product}}
+        <div class="product-name mb-4">
+          <label for="name">Product Name</label>
+          <input type="string" class="form-control" name="name" value="{{product.name}}">
+        </div>
+
+        <div class="pic-upload mb-4">
+          <div class="upload">
+            <label class="choose-file">
+              <i class="fas fa-camera"></i> Click to choose file...
+              <input type="file" class="form-control-file" onchange="imagePreview()" id="image_upload" name="image"
+                style="display:none">
+            </label>
           </div>
-        </a>
-        Edit Product
-      </div>
 
-      <div class="product-name mb-4">
-        <label for="name">Product Name</label>
-        <input type="string" class="form-control" name="name" value="{{product.name}}">
-      </div>
-
-      <div class="pic-upload mb-4">
-        <div class="upload">
-          <label class="choose-file">
-            <i class="fas fa-camera"></i> Click to choose file...
-            <input type="file" class="form-control-file" onchange="imagePreview()" id="image_upload" name="image"
-              style="display:none">
-          </label>
+          <div class="picture">
+            <img src="{{product.image}}" alt="" id="picture">
+          </div>
         </div>
 
-        <div class="picture">
-          <img src="{{product.image}}" alt="" id="picture">
+        <div class="description mb-4">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" name="description" value="{{product.description}}">
         </div>
-      </div>
 
-      <div class="description mb-4">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" name="description" value="{{product.description}}">
-      </div>
+        <div class="price mb-4">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" name="price" value="{{product.price}}">
+        </div>
+        {{else}}
+        <div class="product-name mb-4">
+          <label for="name">Product Name</label>
+          <input type="string" class="form-control" name="name">
+        </div>
 
-      <div class="price mb-4">
-        <label for="price">Price</label>
-        <input type="number" class="form-control" name="price" value="{{product.price}}">
-      </div>
+        <div class="pic-upload mb-4">
+          <div class="upload">
+            <label class="choose-file">
+              <i class="fas fa-camera"></i> Click to choose file...
+              <input type="file" class="form-control-file" onchange="imagePreview()" id="image_upload" name="image"
+                style="display:none">
+            </label>
+          </div>
 
-      <div class="submit">
-        <button type="submit" class="btn btn-secondary">Submit</button>
+          <div class="picture">
+            <img src="" alt="尚未選擇圖片" id="picture">
+          </div>
+        </div>
+
+        <div class="description mb-4">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" name="description" value="">
+        </div>
+
+        <div class="price mb-4">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" name="price" value="">
+        </div>
+        {{/if}}
+
+        <div class="submit">
+          <button type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+
       </div>
 
     </div>
+  </form>
 
-  </div>
-</form>
+  <script>
+    //預覽圖片
+    function imagePreview() {
+      const image = document.querySelector('#picture')
+      const imageFile = document.querySelector('#image_upload').files[0]
+      const reader = new FileReader()
 
-<script>
-  //預覽圖片
-  function imagePreview() {
-    const image = document.querySelector('#picture')
-    const imageFile = document.querySelector('#image_upload').files[0]
-    const reader = new FileReader()
-
-    reader.addEventListener("load", function () {
-      console.log('image', image.src)
-      console.log(reader.result)
-      image.src = reader.result
-    }, false);
-    if (imageFile) {
-      reader.readAsDataURL(imageFile);
+      reader.addEventListener("load", function () {
+        console.log('image', image.src)
+        console.log(reader.result)
+        image.src = reader.result
+      }, false);
+      if (imageFile) {
+        reader.readAsDataURL(imageFile);
+      }
     }
-  }
-</script>
+  </script>

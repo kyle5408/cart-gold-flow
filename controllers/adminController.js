@@ -46,6 +46,27 @@ const adminController = {
     return res.render('admin/adminProduct', { product })
   },
 
+  //新增商品
+  postAdminProduct: async (req, res) => {
+    const { name, description, price } = req.body
+    const { file } = req
+    if (file) {
+      await fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return
+        })
+      })
+    }
+    await Product.create({
+      name,
+      image: file ? `/upload/${file.originalname}` : '',
+      description,
+      price
+    })
+    return res.redirect('/admin/products')
+  },
+
   //編輯商品
   putAdminProduct: async (req, res) => {
     const { name, description, price } = req.body
@@ -68,7 +89,7 @@ const adminController = {
   },
 
   //刪除商品
-  deleteProduct: async(req, res) => {
+  deleteProduct: async (req, res) => {
     const product = await Product.findByPk(req.params.id)
     await product.destroy()
     return res.redirect('/admin/products')

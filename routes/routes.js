@@ -35,7 +35,13 @@ router.get('/admin/orders', login.authenticatedAdmin, adminController.getAdminOr
 
 //管理者商品頁
 router.get('/admin/products/:id', login.authenticatedAdmin, adminController.getAdminProduct)
-router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image'),adminController.putAdminProduct)
+
+//管理者新增商品
+router.get('/admin/products/create', login.authenticatedAdmin, adminController.getAdminProduct)
+router.post('/admin/products', login.authenticatedAdmin, upload.single('image'), adminController.postAdminProduct)
+
+//管理者編輯商品
+router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image'), adminController.putAdminProduct)
 
 //管理者刪除商品
 router.delete('/admin/products/:id', login.authenticatedAdmin, adminController.deleteProduct)
