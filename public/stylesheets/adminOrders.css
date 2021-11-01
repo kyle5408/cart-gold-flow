@@ -48,3 +48,24 @@
   font-size: 1vw;
   font-weight: bold;
 }
+
+.nav-link {
+  color: gray;
+}
+
+.page-link {
+  background-color: gray;
+  color: white;
+  border: none;
+}
+
+.page-item.active .page-link{
+  background-color: gray;
+  border: none;
+}
+
+.page-item .page-link{
+  background-color: white;
+  color:#313131;
+  border: none;
+}
