@@ -16,7 +16,11 @@
               <i class="fas fa-arrow-circle-left"></i>
             </div>
           </a>
+          {{#if product}}
           Edit Product
+          {{else}}
+          Add Product
+          {{/if}}
         </div>
         {{#if product}}
         <div class="product-name mb-4">
