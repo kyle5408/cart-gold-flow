@@ -6,7 +6,9 @@ const db = require('../models')
 const User = db.User
 const Product = db.Product
 const Order = db.Order
+const OrderItem = db.orderitem
 const pagination = require('../services/pagination')
+const orderitem = require('../models/orderitem')
 const pageLimit = 6
 
 const adminController = {
@@ -114,9 +116,33 @@ const adminController = {
     })
   },
 
+  //單一訂單
+  getAdminOrder: async (req, res) => {
+    const order = await Order.findByPk(req.params.id, {
+      include: [
+        { model: Product, as: 'items' }
+      ],
+    })
+    const items = await order.dataValues.items.map(item => ({
+      ...item.dataValues,
+      quantity: item.OrderItem.dataValues.quantity
+    }))
+    return res.render('admin/adminOrder', {
+      order: order.dataValues,
+      items
+    })
+  },
 
-
-
+  //編輯訂單
+  putAdminOrder: async (req, res) => {
+    const { shipping_status, payment_status } = req.body
+    const order = await Order.findByPk(req.params.id)
+    await order.update({
+      shipping_status,
+      payment_status
+    })
+    res.redirect('/admin/orders')
+  },
 }
 
 module.exports = adminController

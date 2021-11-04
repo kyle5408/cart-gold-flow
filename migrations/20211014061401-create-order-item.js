@@ -14,9 +14,9 @@ module.exports = {
       ProductId: {
         type: Sequelize.INTEGER
       },
-      price: {
-        type: Sequelize.INTEGER
-      },
+      // price: {
+      //   type: Sequelize.INTEGER
+      // },
       quantity: {
         type: Sequelize.INTEGER
       },

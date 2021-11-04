@@ -33,6 +33,10 @@ router.get('/admin/products', login.authenticatedAdmin, adminController.getAdmin
 //管理者訂單頁面
 router.get('/admin/orders', login.authenticatedAdmin, adminController.getAdminOrders)
 
+//管理者編輯訂單
+router.get('/admin/orders/:id', login.authenticatedAdmin, adminController.getAdminOrder)
+router.put('/admin/orders/:id', login.authenticatedAdmin, adminController.putAdminOrder)
+
 //管理者商品頁
 router.get('/admin/products/:id', login.authenticatedAdmin, adminController.getAdminProduct)
 
