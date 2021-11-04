@@ -50,4 +50,7 @@ router.put('/admin/products/:id', login.authenticatedAdmin, upload.single('image
 //管理者刪除商品
 router.delete('/admin/products/:id', login.authenticatedAdmin, adminController.deleteProduct)
 
+//登出
+router.get('/logout', userController.logout)
+
 module.exports = router

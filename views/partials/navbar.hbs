@@ -12,10 +12,24 @@
   </div>
 
   <div class="link col-md-8 col-sm-8">
-    <button type="button" class="btn btn-secondary">Admin</button>
+    <button type="button" class="btn btn-secondary">
+      <a href="/admin/products" style="color: white;">
+        Admin
+      </a>
+    </button>
     <button type="button" class="btn btn-secondary">Cart</button>
     <button type="button" class="btn btn-secondary">Order</button>
-    <button type="button" class="btn btn-secondary">Login</button>
+    <button type="button" class="btn btn-secondary">
+      {{#if user}}
+      <a href="/logout" style="color: white;">
+        Logout
+      </a>
+      {{else}}
+      <a href="/signin" style="color: white;">
+        Login
+      </a>
+      {{/if}}
+    </button>
   </div>
 
 </nav>

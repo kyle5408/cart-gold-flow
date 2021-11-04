@@ -14,6 +14,12 @@ const userController = {
     res.redirect('/')
   },
 
+  //登出
+  logout: (req, res) => {
+    req.logout()
+    res.redirect('/')
+  },
+
   //註冊頁面
   signUpPage: (req, res) => {
     return res.render('signUp')

@@ -8,7 +8,6 @@ const Product = db.Product
 const Order = db.Order
 const OrderItem = db.orderitem
 const pagination = require('../services/pagination')
-const orderitem = require('../models/orderitem')
 const pageLimit = 6
 
 const adminController = {
