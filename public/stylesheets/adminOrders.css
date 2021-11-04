@@ -19,7 +19,7 @@
   padding: 0px;
 }
 
-.order-number-t, .payment-status-t, .price-t, .shipping-status-t, .order-detail-t {
+.order-number-t, .payment-status-t, .user-t, .shipping-status-t, .order-detail-t {
   background-color: #313131;
   border: solid 2px white;
   font-size: 1vw;
@@ -27,7 +27,7 @@
   text-align: center;
 }
 
-.order-number, .payment-status, .price, .shipping-status, .order-detail {
+.order-number, .payment-status, .user, .shipping-status, .order-detail {
   background-color:	#F0F0F0;
   border: solid 2px white;
   font-size: 1vw;

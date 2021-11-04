@@ -11,18 +11,18 @@
     </li>
   </ul>
 
-  <div class="order-title col-md-9">
+  <div class="order-title col-md-12">
     <div class="order-number-t col-md-2">Order Number</div>
-    <div class="price-t col-md-1">Price</div>
+    <div class="user-t col-md-2">Customer ID</div>
     <div class="payment-status-t col-md-2">Payment Status</div>
     <div class="shipping-status-t col-md-2">Shipping Status</div>
     <div class="order-detail-t col-md-2">Order Detail</div>
   </div>
 
   {{#each orders}}
-  <div class="orders col-md-9">
+  <div class="orders col-md-12">
     <div class="order-number col-md-2">#{{this.id}}</div>
-    <div class="price col-md-1">${{this.price}}</div>
+    <div class="user col-md-2">{{this.UserId}}</div>
     <div class="payment-status col-md-2">
       {{#ifCond this.payment_status "0" }}
       not paid
