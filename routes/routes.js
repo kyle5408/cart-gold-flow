@@ -8,8 +8,8 @@ const userController = require('../controllers/userController')
 const adminController = require('../controllers/adminController')
 const user = require('../models/user')
 
-router.get('/', (req, res) => {
-  res.redirect('/admin/products')
+router.get('/', (req,res) => {
+  res.redirect('/products')
 })
 
 //使用者登入頁面
@@ -20,8 +20,8 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 
-// //使用者首頁
-// router.get('/', login.authenticated, userController.getUserIndex)
+//使用者首頁(商品頁)
+router.get('/products', login.authenticated, userController.getUserIndex)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)

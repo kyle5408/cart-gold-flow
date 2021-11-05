@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
+const Product = db.Product
+const pagination = require('../services/pagination')
+const pageLimit = 15
 
 const userController = {
   // 登入頁面
@@ -52,8 +55,22 @@ const userController = {
   },
 
   //首頁
-  getUserIndex: (req, res) => {
-    return res.render('index')
+  getUserIndex: async (req, res) => {
+    let offset = await pagination.getOffset(req, pageLimit)
+    const products = await Product.findAndCountAll({
+      offset: offset,
+      limit: pageLimit,
+      raw: true,
+      nest: true
+    })
+    const { page, totalPage, prev, next } = await pagination.paginate(req, products.count, pageLimit)
+    return res.render('index', {
+      products: products.rows,
+      page,
+      totalPage,
+      prev,
+      next
+    })
   }
 }
 
