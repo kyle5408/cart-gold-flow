@@ -9,6 +9,7 @@ const adminController = require('../controllers/adminController')
 const user = require('../models/user')
 
 router.get('/', (req,res) => {
+  // res.render('product')
   res.redirect('/products')
 })
 
@@ -22,6 +23,7 @@ router.post('/signup', userController.signUp)
 
 //使用者首頁(商品頁)
 router.get('/products', login.authenticated, userController.getUserIndex)
+router.get('/products/:id', login.authenticated, userController.getProduct)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)

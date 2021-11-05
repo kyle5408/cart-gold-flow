@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
 const Product = db.Product
+const Cart = db.Cart
 const pagination = require('../services/pagination')
 const pageLimit = 15
 
@@ -54,7 +55,7 @@ const userController = {
     }
   },
 
-  //首頁
+  //首頁(商品總覽)
   getUserIndex: async (req, res) => {
     let offset = await pagination.getOffset(req, pageLimit)
     const products = await Product.findAndCountAll({
@@ -71,6 +72,17 @@ const userController = {
       prev,
       next
     })
+  },
+
+  //單一商品
+  getProduct: async (req, res) => {
+    const product = await Product.findByPk(req.params.id, {
+      include: [
+        { model: Cart, as: 'carts' }
+      ], raw: true, nest: true
+    })
+    console.log(product)
+    return res.render('product', { product })
   }
 }
 
