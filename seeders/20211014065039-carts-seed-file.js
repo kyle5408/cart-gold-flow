@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Carts',
       Array.from({ length: 3 }).map((item, index) => ({
         id: index + 1,
+        UserId: index + 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
