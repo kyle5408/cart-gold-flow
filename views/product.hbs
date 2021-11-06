@@ -11,16 +11,17 @@
         <div class="name">{{product.name}}</div>
         <div class="price">$ {{product.price}}</div>
         <div class="description">{{product.description}}</div>
-        <form action="/cart/{{product.id}}" method="POST">
+        <form action="/carts/{{product.id}}" method="POST">
           <div class="add-to-cart">
+            <input type="hidden" id="vol" name="vol" value="1"/>
             <div class="vol">1</div>
             <div class="fa fa-plus-circle up"></div>
             <div class="fa fa-minus-circle down"></div>
             <div class="add">
               <button class="btn-secondary" type="submit">
                 加入購物車
-                </button>
-                </div>
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -35,8 +36,9 @@
 
 <script>
   const volPanel = document.querySelector('.add-to-cart')
-  volPanel.addEventListener("click", function(event) {
-    if(event.target.matches(".fa-plus-circle") || event.target.matches(".fa-minus-circle") ) {
+  volPanel.addEventListener("click", function (event) {
+    if (event.target.matches(".fa-plus-circle") || event.target.matches(".fa-minus-circle")) {
+      const volInput = document.querySelector('#vol')
       let volDiv = document.querySelector('.vol')
       let vol = Number(volDiv.innerHTML)
       if (event.target.matches(".fa-plus-circle")) {
@@ -48,6 +50,7 @@
         }
       }
       volDiv.innerHTML = vol
+      volInput.value = vol
     }
   })
 </script>

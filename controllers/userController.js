@@ -3,6 +3,7 @@ const db = require('../models')
 const User = db.User
 const Product = db.Product
 const Cart = db.Cart
+const CartItem = db.CartItem
 const pagination = require('../services/pagination')
 const pageLimit = 15
 
@@ -75,9 +76,29 @@ const userController = {
   },
 
   //單一商品
-  getProduct: async (req, res) => {
+  getUserProduct: async (req, res) => {
     const product = await Product.findByPk(req.params.id, { raw: true, nest: true })
     return res.render('product', { product })
+  },
+
+  //新增至購物車
+  postUserCart: async (req, res) => {
+    const addVol = Number(req.body.vol)
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    const cartItem = await CartItem.findOne({ where: { CartId: cartUser, ProductId: req.params.id } })
+    if (cartItem) {
+      quantity = addVol ? cartItem.quantity + addVol : cartItem.quantity + 1
+      await cartItem.update({
+        quantity
+      })
+    } else {
+      await CartItem.create({
+        CartId: req.user.id,
+        ProductId: req.params.id,
+        quantity: 1
+      })
+    }
   }
 }
 

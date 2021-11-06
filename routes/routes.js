@@ -23,7 +23,10 @@ router.post('/signup', userController.signUp)
 
 //使用者首頁(商品頁)
 router.get('/products', login.authenticated, userController.getUserIndex)
-router.get('/products/:id', login.authenticated, userController.getProduct)
+router.get('/products/:id', login.authenticated, userController.getUserProduct)
+
+//使用者加入購物車
+router.post('/carts/:id', login.authenticated, userController.postUserCart)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
