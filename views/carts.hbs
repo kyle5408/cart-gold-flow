@@ -41,9 +41,11 @@
           <div class="fa fa-minus-circle down"></div>
         </div>
       </div>
+      <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
       <div class="delete col-md-2">
-        <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
-        <button onclick="deleteOne()" value="{{this.ProductId}}"><i class="fas fa-trash-alt"></i></button>
+        <button onclick="deleteOne()" value="{{this.ProductId}}" class="deleteOne">
+          <i class="fas fa-trash-alt"></i>
+          </button>
       </div>
     </div>
     <hr />
@@ -108,8 +110,7 @@
   }
 
   function deleteOne() {
-    event.preventDefault()
-    const productId = event.target.value
+    const productId = event.target.matches(".fa-trash-alt") ? event.target.parentElement.value : event.target.value
     if (productId) {
       document.cart.action = `/carts/${productId}?_method=DELETE`
       document.cart.method = "POST"

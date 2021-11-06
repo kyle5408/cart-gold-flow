@@ -67,6 +67,7 @@
 form .fa {
   font-size: 1.2vw;
   margin: auto 0.4vw;
+  border: none;
 }
 
 .delete {
@@ -103,7 +104,8 @@ form .fa {
   text-decoration: none;
 }
 
-.delete button {
-  background-color: transparent;
+.deleteOne {
   border: none;
+  background-color: transparent;
 }
+
