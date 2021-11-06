@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/stylesheets/carts.css">
 
 <div class="wrap  col-md-4">
-  <form action="/carts?_method=PUT" method="POST">
+  <form action="" name="cart">
     <div class="cart-item-title">
       <a href="javascript:history.back()">
         <div class="back-icon mr-4">
@@ -36,16 +36,14 @@
         </div>
 
         <div class="volume">
-          <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}"/>
-          <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
-            <div class="fa fa-plus-circle up"></div>
-            <div class="fa fa-minus-circle down"></div>
+          <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}" />
+          <div class="fa fa-plus-circle up"></div>
+          <div class="fa fa-minus-circle down"></div>
         </div>
       </div>
       <div class="delete col-md-2">
-        <a href="">
-          <i class="fas fa-trash-alt"></i>
-        </a>
+        <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
+        <button onclick="deleteOne()" value="{{this.ProductId}}"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>
     <hr />
@@ -59,7 +57,7 @@
 </div>
 
 <div class="update-btn">
-  <button type="submit" class="btn btn-secondary">
+  <button class="btn btn-secondary" onclick="updateAll()">
     Update
   </button>
   <button class="btn btn-secondary">
@@ -69,7 +67,9 @@
   </button>
 </div>
 </div>
+
 </form>
+
 </div>
 
 <script>
@@ -106,5 +106,22 @@
     }
     totalPrice.innerHTML = `$${sumPrice}`
   }
+
+  function deleteOne() {
+    event.preventDefault()
+    const productId = event.target.value
+    if (productId) {
+      document.cart.action = `/carts/${productId}?_method=DELETE`
+      document.cart.method = "POST"
+      document.cart.submit()
+    }
+  }
+
+  function updateAll() {
+    document.cart.action = "/carts?_method=PUT"
+    document.cart.method = "POST"
+    document.cart.submit()
+  }
+
 
 </script>

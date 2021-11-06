@@ -135,8 +135,20 @@ const userController = {
         })
       }
     }
+    req.flash('success_messages', 'Update successful！')
     return res.redirect('/carts')
   },
+
+  deleteUserCart: async(req, res) => {
+    console.log(req.params)
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    const cartItem = await CartItem.findAll({where: {ProductId: req.params.id, CartId: cartUser}})
+    await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
+    req.flash('success_messages', 'Delete successful！')
+    return res.redirect('/carts')
+  }
+
 }
 
 module.exports = userController

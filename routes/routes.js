@@ -25,10 +25,18 @@ router.post('/signup', userController.signUp)
 router.get('/products', login.authenticated, userController.getUserIndex)
 router.get('/products/:id', login.authenticated, userController.getUserProduct)
 
-//使用者購物車
+//使用者購物車頁面
 router.get('/carts', login.authenticated, userController.getUserCart)
+
+//使用者新增至購物車
 router.post('/carts/:id', login.authenticated, userController.postUserCart)
+
+//使用者修改購物車
 router.put('/carts/', login.authenticated, userController.putUserCart)
+
+//使用者刪除購物車
+router.delete('/carts/:id', login.authenticated, userController.deleteUserCart)
+
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
