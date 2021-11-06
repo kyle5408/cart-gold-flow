@@ -102,3 +102,8 @@ form .fa {
   color: white;
   text-decoration: none;
 }
+
+.delete button {
+  background-color: transparent;
+  border: none;
+}
