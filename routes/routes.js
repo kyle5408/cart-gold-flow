@@ -25,7 +25,8 @@ router.post('/signup', userController.signUp)
 router.get('/products', login.authenticated, userController.getUserIndex)
 router.get('/products/:id', login.authenticated, userController.getUserProduct)
 
-//使用者加入購物車
+//使用者購物車
+router.get('/carts', login.authenticated, userController.getUserCart)
 router.post('/carts/:id', login.authenticated, userController.postUserCart)
 
 //管理者登入頁面

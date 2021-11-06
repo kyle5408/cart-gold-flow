@@ -1,0 +1,104 @@
+.wrap {
+  margin: auto;
+}
+
+.cart-item-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  margin: 1vw;
+  font-weight: bold;
+  color: #313131;
+}
+
+.cart-item-title a {
+  color: #313131;
+}
+
+.content {
+  margin: auto;
+}
+
+.cartItem {
+  display: flex;
+  justify-content: center;
+}
+
+.picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 10vw;
+  max-height: 10vh;
+  max-width: 10vw;
+}
+
+.picture img{
+  max-height: 10vh;
+  max-width: 10vh;
+}
+
+.text .name {
+  font-size: 1vw;
+  font-weight: bold;
+}
+
+.text .price, .sign {
+  color: #FF2E63;
+  margin:0.5vw;
+  font-weight: bold;
+  font-size: 1vw;
+}
+
+.volume {
+  display: flex;
+  font-size: 1vw;
+}
+
+.volume .vol{
+  border: 2px solid #313131;
+  min-width: 2vw;
+  text-align: center;
+  margin: auto 0;
+}
+
+.fa {
+  text-align: center;
+  margin: auto 0.1vw;
+}
+
+.delete {
+  font-size: 1.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.delete a {
+  margin: auto;
+  text-align: center;
+  color: #313131;
+}
+
+.subtotal {
+  display: flex;
+  font-size: 1vw;
+  font-weight: bold;
+  justify-content: space-around;
+}
+
+.subtotal-number {
+  color: #FF2E63;
+}
+
+.update-btn {
+  display: flex;
+  justify-content:center;
+  margin: 1vw auto;
+}
+
+.btn a {
+  color: white;
+  text-decoration: none;
+}

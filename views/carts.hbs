@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/carts.css">
+
+<div class="wrap  col-md-4">
+  <div class="cart-item-title">
+    <a href="javascript:history.back()">
+      <div class="back-icon mr-4">
+        <i class="fas fa-arrow-circle-left"></i>
+      </div>
+    </a>
+    Cart({{cartItem.length}})
+    <hr>
+  </div>
+
+  <div class="content">
+    {{#each cartItem}}
+
+    <div class="cartItem col-md-12">
+      <a href="/products/{{this.ProductId}}">
+        <div class="picture col-md-5">
+          <img src="{{this.image}}" alt="">
+        </div>
+        <div class="text col-md-5">
+          <div class="name">
+            {{this.name}}
+          </div>
+      </a>
+      <div class="price-text d-flex">
+        <div class="sign mr-2">
+          $
+        </div>
+        <div class="price">
+          {{this.price}}
+        </div>
+      </div>
+
+      <div class="volume">
+        <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}" required />
+        <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
+        <div class="fa fa-plus-circle up"></div>
+        <div class="fa fa-minus-circle down"></div>
+      </div>
+    </div>
+
+    <div class="delete col-md-2">
+      <a href="">
+        <i class="fas fa-trash-alt"></i>
+      </a>
+    </div>
+  </div>
+  <hr />
+  {{/each}}
+
+  <div class="subtotal">
+    <div class="subtotal-title mr-4">Subtotal</div>
+    <div class="subtotal-number" id="total-price"></div>
+  </div>
+</div>
+
+<div class="update-btn">
+  <button type="submit" class="btn btn-secondary">
+    Update
+  </button>
+  <button class="btn btn-secondary">
+    <a href="">
+      Create Order
+    </a>
+  </button>
+</div>
+</div>
+
+</div>
+
+<script>
+  const volPanel = document.querySelector('.content')
+  volPanel.addEventListener('click', function (event) {
+    if (event.target.matches(".fa-plus-circle") || event.target.matches(".fa-minus-circle")) {
+      const volumeNode = event.target.parentElement.children[0]
+      let vol = Number(volumeNode.value)
+      if (event.target.matches(".fa-plus-circle")) {
+        vol += 1
+      } else {
+        vol -= 1
+        if (vol < 0) {
+          vol = 0
+        }
+      }
+      volumeNode.value = vol
+      sum()
+    }
+  })
+
+  window.addEventListener('load', sum())
+  volPanel.addEventListener('input', event => {
+    sum()
+  })
+
+  function sum() {
+    const price = document.querySelectorAll('.price')
+    const quantity = document.querySelectorAll('#vol')
+    const totalPrice = document.querySelector('#total-price')
+    let sumPrice = 0
+    for (let i = 0; i < price.length; i++) {
+      sumPrice += Number(price[i].innerText) * Number(quantity[i].value)
+    }
+    totalPrice.innerHTML = `$${sumPrice}`
+  }
+
+</script>

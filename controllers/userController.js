@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
+const cartitem = require('../models/cartitem')
 const User = db.User
 const Product = db.Product
 const Cart = db.Cart
@@ -102,7 +103,21 @@ const userController = {
     req.flash('success_messages', 'Successfully add to cart!')
     if (addVol) return res.redirect(`/products/${req.params.id}`)
     return res.redirect('/products')
-  }
+  },
+
+  //購物車清單
+  getUserCart: async (req, res) => {
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    const cartItems = await CartItem.findAll({ include: [Product], where: { CartId: cartUser } })
+    const cartItem = await cartItems.map(d => ({
+      ...d.dataValues,
+      image: d.dataValues.Product.image,
+      name: d.dataValues.Product.name,
+      price: d.dataValues.Product.price
+    }))
+    return res.render('carts', { cartItem })
+  },
 }
 
 module.exports = userController
