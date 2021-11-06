@@ -118,6 +118,25 @@ const userController = {
     }))
     return res.render('carts', { cartItem })
   },
+
+  //修改購物車數量
+  putUserCart: async (req, res) => {
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    const cartItems = await CartItem.findAll({ where: { CartId: cartUser } })
+    const vol = req.body.vol
+    for (let i = 0; i < cartItems.length; i++) {
+      if(vol[i] === '0') {
+        await cartItems[i].destroy()
+        console.log('刪除資料')
+      } else {
+        await cartItems[i].update({
+          quantity: vol[i]
+        })
+      }
+    }
+    return res.redirect('/carts')
+  },
 }
 
 module.exports = userController

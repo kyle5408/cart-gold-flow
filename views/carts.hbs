@@ -2,59 +2,60 @@
 <link rel="stylesheet" href="/stylesheets/carts.css">
 
 <div class="wrap  col-md-4">
-  <div class="cart-item-title">
-    <a href="javascript:history.back()">
-      <div class="back-icon mr-4">
-        <i class="fas fa-arrow-circle-left"></i>
-      </div>
-    </a>
-    Cart({{cartItem.length}})
-    <hr>
-  </div>
-
-  <div class="content">
-    {{#each cartItem}}
-
-    <div class="cartItem col-md-12">
-      <a href="/products/{{this.ProductId}}">
-        <div class="picture col-md-5">
-          <img src="{{this.image}}" alt="">
+  <form action="/carts?_method=PUT" method="POST">
+    <div class="cart-item-title">
+      <a href="javascript:history.back()">
+        <div class="back-icon mr-4">
+          <i class="fas fa-arrow-circle-left"></i>
         </div>
-        <div class="text col-md-5">
-          <div class="name">
-            {{this.name}}
+      </a>
+      Cart({{cartItem.length}})
+      <hr>
+    </div>
+
+
+    <div class="content">
+      {{#each cartItem}}
+      <div class="cartItem col-md-12">
+        <a href="/products/{{this.ProductId}}">
+          <div class="picture col-md-5">
+            <img src="{{this.image}}" alt="">
           </div>
-      </a>
-      <div class="price-text d-flex">
-        <div class="sign mr-2">
-          $
+          <div class="text col-md-5">
+            <div class="name">
+              {{this.name}}
+            </div>
+        </a>
+        <div class="price-text d-flex">
+          <div class="sign mr-2">
+            $
+          </div>
+          <div class="price">
+            {{this.price}}
+          </div>
         </div>
-        <div class="price">
-          {{this.price}}
+
+        <div class="volume">
+          <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}"/>
+          <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
+            <div class="fa fa-plus-circle up"></div>
+            <div class="fa fa-minus-circle down"></div>
         </div>
       </div>
-
-      <div class="volume">
-        <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}" required />
-        <input type="hidden" name="ProductId" value="{{this.ProductId}}" />
-        <div class="fa fa-plus-circle up"></div>
-        <div class="fa fa-minus-circle down"></div>
+      <div class="delete col-md-2">
+        <a href="">
+          <i class="fas fa-trash-alt"></i>
+        </a>
       </div>
     </div>
+    <hr />
+    {{/each}}
 
-    <div class="delete col-md-2">
-      <a href="">
-        <i class="fas fa-trash-alt"></i>
-      </a>
+
+    <div class="subtotal">
+      <div class="subtotal-title mr-4">Subtotal</div>
+      <div class="subtotal-number" id="total-price"></div>
     </div>
-  </div>
-  <hr />
-  {{/each}}
-
-  <div class="subtotal">
-    <div class="subtotal-title mr-4">Subtotal</div>
-    <div class="subtotal-number" id="total-price"></div>
-  </div>
 </div>
 
 <div class="update-btn">
@@ -68,7 +69,7 @@
   </button>
 </div>
 </div>
-
+</form>
 </div>
 
 <script>

@@ -8,7 +8,7 @@ const userController = require('../controllers/userController')
 const adminController = require('../controllers/adminController')
 const user = require('../models/user')
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
   // res.render('product')
   res.redirect('/products')
 })
@@ -28,6 +28,7 @@ router.get('/products/:id', login.authenticated, userController.getUserProduct)
 //使用者購物車
 router.get('/carts', login.authenticated, userController.getUserCart)
 router.post('/carts/:id', login.authenticated, userController.postUserCart)
+router.put('/carts/', login.authenticated, userController.putUserCart)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
