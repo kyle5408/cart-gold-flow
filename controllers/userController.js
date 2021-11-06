@@ -99,6 +99,9 @@ const userController = {
         quantity: 1
       })
     }
+    req.flash('success_messages', 'Successfully add to cart!')
+    if (addVol) return res.redirect(`/products/${req.params.id}`)
+    return res.redirect('/products')
   }
 }
 
