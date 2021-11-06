@@ -76,12 +76,7 @@ const userController = {
 
   //單一商品
   getProduct: async (req, res) => {
-    const product = await Product.findByPk(req.params.id, {
-      include: [
-        { model: Cart, as: 'carts' }
-      ], raw: true, nest: true
-    })
-    console.log(product)
+    const product = await Product.findByPk(req.params.id, { raw: true, nest: true })
     return res.render('product', { product })
   }
 }

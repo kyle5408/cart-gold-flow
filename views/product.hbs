@@ -6,11 +6,24 @@
     <div class="picture">
       <img src="{{product.image}}" alt="">
     </div>
-    <div class="detail">
-      <div class="name">{{product.name}}</div>
-      <div class="price">{{product.price}}</div>
-      <div class="description">{{product.description}}</div>
-      <div class="add-to-cart"></div>
+    <div class="text">
+      <div class="detail">
+        <div class="name">{{product.name}}</div>
+        <div class="price">$ {{product.price}}</div>
+        <div class="description">{{product.description}}</div>
+        <form action="/cart/{{product.id}}" method="POST">
+          <div class="add-to-cart">
+            <div class="vol">1</div>
+            <div class="fa fa-plus-circle up"></div>
+            <div class="fa fa-minus-circle down"></div>
+            <div class="add">
+              <button class="btn-secondary" type="submit">
+                加入購物車
+                </button>
+                </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -19,3 +32,22 @@
   </div>
 
 </div>
+
+<script>
+  const volPanel = document.querySelector('.add-to-cart')
+  volPanel.addEventListener("click", function(event) {
+    if(event.target.matches(".fa-plus-circle") || event.target.matches(".fa-minus-circle") ) {
+      let volDiv = document.querySelector('.vol')
+      let vol = Number(volDiv.innerHTML)
+      if (event.target.matches(".fa-plus-circle")) {
+        vol += 1
+      } else {
+        vol -= 1
+        if (vol < 0) {
+          vol = 0
+        }
+      }
+      volDiv.innerHTML = vol
+    }
+  })
+</script>
