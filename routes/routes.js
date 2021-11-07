@@ -37,7 +37,6 @@ router.put('/carts/', login.authenticated, userController.putUserCart)
 //使用者刪除購物車
 router.delete('/carts/:id', login.authenticated, userController.deleteUserCart)
 
-
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
 router.post('/admin/signin', passport.authenticate('local', { failureRedirect: '/admin/signin', failureFlash: true }), adminController.signIn)

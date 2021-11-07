@@ -85,8 +85,8 @@ const userController = {
   //新增至購物車
   postUserCart: async (req, res) => {
     const addVol = Number(req.body.vol)
-    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
-    const cartUser = cart.id
+    const cart = await Cart.findOrCreate({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart[0].id
     const cartItem = await CartItem.findOne({ where: { CartId: cartUser, ProductId: req.params.id } })
     if (cartItem) {
       quantity = addVol ? cartItem.quantity + addVol : cartItem.quantity + 1
@@ -95,7 +95,7 @@ const userController = {
       })
     } else {
       await CartItem.create({
-        CartId: req.user.id,
+        CartId: cartUser,
         ProductId: req.params.id,
         quantity: 1
       })
@@ -126,7 +126,7 @@ const userController = {
     const cartItems = await CartItem.findAll({ where: { CartId: cartUser } })
     const vol = req.body.vol
     for (let i = 0; i < cartItems.length; i++) {
-      if(vol[i] === '0') {
+      if (vol[i] === '0') {
         await cartItems[i].destroy()
         console.log('刪除資料')
       } else {
@@ -139,11 +139,11 @@ const userController = {
     return res.redirect('/carts')
   },
 
-  deleteUserCart: async(req, res) => {
+  deleteUserCart: async (req, res) => {
     console.log(req.params)
     const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
     const cartUser = cart.id
-    const cartItem = await CartItem.findAll({where: {ProductId: req.params.id, CartId: cartUser}})
+    const cartItem = await CartItem.findAll({ where: { ProductId: req.params.id, CartId: cartUser } })
     await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
     req.flash('success_messages', 'Delete successful！')
     return res.redirect('/carts')
