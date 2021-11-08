@@ -1,10 +1,14 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const cartitem = require('../models/cartitem')
+const order = require('../models/order')
+const orderitem = require('../models/orderitem')
 const User = db.User
 const Product = db.Product
 const Cart = db.Cart
 const CartItem = db.CartItem
+const Order = db.Order
+const OrderItem = db.OrderItem
 const pagination = require('../services/pagination')
 const pageLimit = 15
 
@@ -139,6 +143,7 @@ const userController = {
     return res.redirect('/carts')
   },
 
+  //刪除購物車
   deleteUserCart: async (req, res) => {
     console.log(req.params)
     const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
@@ -147,6 +152,24 @@ const userController = {
     await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
     req.flash('success_messages', 'Delete successful！')
     return res.redirect('/carts')
+  },
+
+  //訂單頁面
+  getUserOrder: async (req, res) => {
+    const order = await Order.findAll({ where: { UserId: req.user.id }, include: [{ model: OrderItem, include: [Product] }] })
+    const orderItems = await order.map(item => ({
+      ...item.dataValues,
+    }))
+    for (let i = 0; i < orderItems.length; i++) {
+      orderItems[i].items = await orderItems[i].OrderItems.map(item => ({
+        ...item.dataValues,
+        name: item.dataValues.Product.dataValues.name,
+        image: item.dataValues.Product.dataValues.image,
+        price: item.dataValues.Product.dataValues.price,
+      }))
+    }
+    console.log(orderItems)
+    return res.render('orders', { orderItems })
   }
 
 }

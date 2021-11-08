@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
       );
       Product.hasMany(models.CartItem)
+      Product.hasMany(models.OrderItem)
     }
   };
   Product.init({

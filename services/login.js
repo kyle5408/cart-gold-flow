@@ -5,7 +5,7 @@ const login = {
         return next()
       }
       if (req.user.role === 'admin') {
-        req.flash('error_messages', 'Please use admin login!')
+        req.flash('error_messages', 'Please use user login!')
         return res.redirect('/signin')
       }
     }

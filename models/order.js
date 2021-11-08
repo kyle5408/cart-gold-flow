@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'OrderId'
       }
       );
+      Order.hasMany(models.OrderItem)
       Order.belongsTo(models.User);
       Order.hasMany(models.Payment)
     }

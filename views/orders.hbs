@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/orders.css">
+
+{{#each orderItems}}
+<form action="" name="order">
+<div class="order-body col-md-12">
+  <div class="order-title d-flex col-md-12">
+    <a href="javascript:history.back()">
+      <div class="back-icon mr-4">
+        <i class="fas fa-arrow-circle-left"></i>
+      </div>
+    </a>
+    Order # {{this.id}}
+  </div>
+  <div class="order-detail col-md-12">
+    <div class="products-address col-md-8">
+      {{#each this.items}}
+      <div class="product col-md-12">
+        <div class="product-name col-md-7">{{this.name}}</div>
+        <div class="product-quantity d-flex col-md-2">
+          <div class="sign mr-2">
+            x
+          </div>
+          <div class="product-quantity-number">
+            {{this.quantity}}
+          </div>
+        </div>
+        <div class="product-price d-flex col-md-3">
+          <div class="sign mr-2">
+            $
+          </div>
+          <div class="product-price-number">
+            {{this.price}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      <hr class="style-one" />
+      <div class="total col-md-12">
+        <div class="total-title col-md-7">Total</div>
+        <div class="total-quantity col-md-2">x </div>
+        <div class="total-price col-md-3"></div>
+      </div>
+
+      <div class="address">
+        <div class="address-title">Shipping Address</div>
+        <div class="name-phone-address col-md-12">
+          <div class="name">
+            Name: {{this.name}}
+          </div>
+          <div class="shipping-address">
+            Address: {{this.address}}
+          </div>
+          <div class="phone">
+            Phone: {{this.phone}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="payment-shipping col-md-4">
+      <div class="payment-status">
+        Payment Status :
+        <select class="form-select" id="payment_status" name="payment_status">
+          <option value="0" {{#ifCond this.payment_status "0" }}selected{{/ifCond}}>
+            not paid
+          </option>
+          <option value="1" {{#ifCond this.payment_status "1" }}selected{{/ifCond}}>
+            paid
+          </option>
+        </select>
+      </div>
+      <div class="shipping-status">
+        Shipping Status :
+        <select class="form-select" id="shipping_status" name="shipping_status">
+          <option value="0" {{#ifCond this.shipping_status "0" }}selected{{/ifCond}}>
+            not paid
+          </option>
+          <option value="1" {{#ifCond this.shipping_status "1" }}selected{{/ifCond}}>
+            paid
+          </option>
+        </select>
+      </div>
+      <div class="update-btn">
+        <button type="submit" class="btn btn-secondary">
+          Credit
+        </button>
+        <button type="submit" class="btn btn-secondary">
+          ATM
+        </button>
+        <button type="submit" class="btn btn-secondary" onclick="deleteOrder()" value="{{this.id}}">
+          {{!-- <input type="hidden" name="orderId" value="{{this.id}}" /> --}}
+          Cancel Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+{{/each}}
+
+<script>
+  const price = document.querySelectorAll('.product-price-number')
+  const quantity = document.querySelectorAll('.product-quantity-number')
+  const totalPrice = document.querySelector('.total-price')
+  const totalQuantity = document.querySelector('.total-quantity')
+  window.addEventListener('load', function sum() {
+    let sumPrice = 0
+    let sumQuantity = 0
+    for (let i = 0; i < price.length; i++) {
+      sumPrice += Number(price[i].innerText) * Number(quantity[i].innerText)
+      sumQuantity += Number(quantity[i].innerText)
+    }
+    totalPrice.innerHTML = `$ ${sumPrice}`
+    totalQuantity.innerHTML = `x ${sumQuantity}`
+  })
+
+  {{!-- function deleteOrder() {
+    event.preventDefault()
+    console.log(event.target.value)
+    const orderId = event.target.value
+    document.order.action = `/orders/${orderId}?_method=DELETE`
+    document.order.method = "POST"
+    document.order.submit()
+  } --}}
+
+</script>
