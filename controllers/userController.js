@@ -132,7 +132,6 @@ const userController = {
     for (let i = 0; i < cartItems.length; i++) {
       if (vol[i] === '0') {
         await cartItems[i].destroy()
-        console.log('刪除資料')
       } else {
         await cartItems[i].update({
           quantity: vol[i]
@@ -145,10 +144,8 @@ const userController = {
 
   //刪除購物車
   deleteUserCart: async (req, res) => {
-    console.log(req.params)
     const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
     const cartUser = cart.id
-    const cartItem = await CartItem.findAll({ where: { ProductId: req.params.id, CartId: cartUser } })
     await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
     req.flash('success_messages', 'Delete successful！')
     return res.redirect('/carts')
@@ -168,8 +165,13 @@ const userController = {
         price: item.dataValues.Product.dataValues.price,
       }))
     }
-    console.log(orderItems)
     return res.render('orders', { orderItems })
+  },
+
+  //刪除訂單
+  deleteUserOrder: async (req, res) => {
+    await Order.destroy({ where: { id: req.params.id } })
+    return res.redirect('/orders')
   }
 
 }

@@ -40,6 +40,9 @@ router.delete('/carts/:id', login.authenticated, userController.deleteUserCart)
 //使用者訂單頁面
 router.get('/orders', login.authenticated, userController.getUserOrder)
 
+//使用者刪除訂單
+router.delete('/orders/:id', login.authenticated, userController.deleteUserOrder)
+
 //使用者建立訂單
 // router.post('/orders', login.authenticated, userController.postUserOrder)
 
