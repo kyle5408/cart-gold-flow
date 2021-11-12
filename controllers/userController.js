@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const nodemailer = require('nodemailer')
 const db = require('../models')
 const User = db.User
 const Product = db.Product
@@ -8,6 +9,14 @@ const Order = db.Order
 const OrderItem = db.OrderItem
 const pagination = require('../services/pagination')
 const pageLimit = 15
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass
+  }
+})
 
 const userController = {
   // 登入頁面
@@ -190,11 +199,12 @@ const userController = {
     if (!req.body.name || !req.body.phone || !req.body.address) {
       req.flash('error_messages', 'Please check required field！')
     } else {
+      const { name, phone, address, amount } = req.body
       const order = await Order.create({
-        name: req.body.name,
-        phone: req.body.phone,
-        address: req.body.address,
-        amount: req.body.price,
+        name,
+        phone,
+        address,
+        amount,
         shipping_status: 0,
         payment_status: 0,
         UserId: req.user.id,
@@ -207,6 +217,19 @@ const userController = {
           quantity: vol[i]
         })
       }
+      const mailOptions = {
+        from: process.env.user,
+        to: req.user.email,
+        subject: '123 Shopping Mall訂單成立通知信',
+        text: `#${order.id}訂單成立，感謝您的訂購。`,
+      }
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('Email sent:', info.response)
+        }
+      })
       return res.redirect('/orders')
     }
   },
