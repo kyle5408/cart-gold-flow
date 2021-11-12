@@ -1,8 +1,5 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
-const cartitem = require('../models/cartitem')
-const order = require('../models/order')
-const orderitem = require('../models/orderitem')
 const User = db.User
 const Product = db.Product
 const Cart = db.Cart
@@ -172,6 +169,55 @@ const userController = {
   deleteUserOrder: async (req, res) => {
     await Order.destroy({ where: { id: req.params.id } })
     return res.redirect('/orders')
+  },
+
+  //建立訂單頁面
+  getUserCreateOrder: async (req, res) => {
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    const cartItems = await CartItem.findAll({ where: { CartId: cartUser }, include: [Product] })
+    const cartItem = await cartItems.map(item => ({
+      ...item.dataValues,
+      name: item.Product.dataValues.name,
+      image: item.Product.dataValues.image,
+      price: item.Product.dataValues.price
+    }))
+    return res.render('createOrder', { cartItem })
+  },
+
+  //建立訂單
+  postUserOrder: async (req, res) => {
+    if (!req.body.name || !req.body.phone || !req.body.address) {
+      req.flash('error_messages', 'Please check required field！')
+    } else {
+      const order = await Order.create({
+        name: req.body.name,
+        phone: req.body.phone,
+        address: req.body.address,
+        amount: req.body.price,
+        shipping_status: 0,
+        payment_status: 0,
+        UserId: req.user.id,
+      })
+      const { ProductId, vol } = req.body
+      for (let i = 0; i < ProductId.length; i++) {
+        await OrderItem.create({
+          OrderId: order.id,
+          ProductId: ProductId[i],
+          quantity: vol[i]
+        })
+      }
+      return res.redirect('/orders')
+    }
+  },
+
+  //刪除訂單商品
+  deleteOrderItem: async (req, res) => {
+    const cart = await Cart.findOne({ where: { UserId: req.user.id }, raw: true, nest: true })
+    const cartUser = cart.id
+    await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
+    req.flash('success_messages', 'Delete successful！')
+    return res.redirect('/orders/create')
   }
 
 }

@@ -44,7 +44,9 @@ router.get('/orders', login.authenticated, userController.getUserOrder)
 router.delete('/orders/:id', login.authenticated, userController.deleteUserOrder)
 
 //使用者建立訂單
-// router.post('/orders', login.authenticated, userController.postUserOrder)
+router.get('/orders/create', login.authenticated, userController.getUserCreateOrder)
+router.delete('/orders/create/:id', login.authenticated, userController.deleteOrderItem)
+router.post('/orders', login.authenticated, userController.postUserOrder)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)

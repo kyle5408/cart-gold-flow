@@ -1,0 +1,118 @@
+.shopping-list {
+  padding: 0;
+  margin: 2vw auto;
+  max-width: 80vw;
+  border: #313131 solid 2px;
+}
+
+.shopping-list .title {
+  color: #313131;
+  font-size: 1.5vw;
+  background-color: #313131;
+  color: white;
+  margin: 0;
+  padding: 0.4vw;
+}
+
+.shopping-list .sub-title{
+  font-size: 1vw;
+  display: flex;
+  align-items: center;
+  padding: 0.4vw;
+}
+
+hr {
+  margin: 0;
+}
+
+.picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 10vw;
+  max-height: 10vh;
+  max-width: 10vw;
+}
+
+.picture img{
+  max-height: 10vh;
+  max-width: 10vh;
+}
+
+.product .product-name {
+  margin: auto 0;
+  font-size: 1vw;
+  font-weight: bold;
+}
+
+.product .product-price {
+  margin: auto 0;
+  font-size: 1vw;
+}
+
+.product .product-quantity {
+  margin: auto 0;
+}
+
+.product .delete {
+  margin: auto 0;
+}
+
+.subtotal {
+  margin: 1vw;
+  display: flex;
+}
+
+.subtotal .subtotal-title {
+  text-align: right;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.subtotal .sign {
+  text-align: right;
+  font-size: 1.5vw;
+  font-weight: bold;  
+}
+
+.subtotal-number {
+  text-align: left;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.shipping-information {
+  padding: 0;
+  margin: 2vw auto;
+  max-width: 80vw;
+  border: #313131 solid 2px;
+}
+
+.shipping-information .title {
+  color: #313131;
+  font-size: 1.5vw;
+  background-color: #313131;
+  color: white;
+  margin: 0;
+  padding: 0.4vw;
+}
+
+.shipping-information .content {
+  padding: 0.4vw;
+}
+
+.shipping-information label {
+  width: 4vw;
+  font-size: 1vw;
+}
+
+.shipping-information .address input {
+  width: 60%;
+}
+
+.check-btn {
+  padding: 0;
+  margin: 2vw auto;
+  max-width: 80vw;
+}

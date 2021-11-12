@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/createOrder.css">
+
+<form action="" name="order">
+<div class="shopping-list">
+  <div class="title">
+    Shopping List
+  </div>
+
+  <div class="sub-title col-md-12">
+    <div class="production-name col-md-6"></div>
+    <div class="price col-md-2">Price</div>
+    <div class="quantity col-md-2">Quantity</div>
+    <div class="delete col-md-1"></div>
+  </div>
+  <hr />
+  {{#each cartItem}}
+  <div class="product col-md-12 d-flex">
+    <div class="picture-name col-md-6 d-flex">
+      <div class="picture">
+        <img src="{{this.image}}" alt="">
+      </div>
+      <input type="hidden" name="ProductId" value="{{this.id}}" />
+      <div class="product-name">{{this.name}}</div>
+    </div>
+    <div class="product-price d-flex col-md-2">
+      <div class="sign mr-2">
+        $
+      </div>
+      <div class="product-price-number" id="price">
+        {{this.price}}
+      </div>
+    </div>
+    <div class="product-quantity d-flex col-md-2">
+      <div class="product-quantity-number">
+        <div class="volume">
+          <input class="vol" type="number" id="vol" name="vol" value="{{this.quantity}}" />
+          <div class="fa fa-plus-circle up"></div>
+          <div class="fa fa-minus-circle down"></div>
+        </div>
+      </div>
+    </div>
+    <div class="delete col-md-1">
+      <button onclick="deleteOne()" value="{{this.ProductId}}" class="deleteOne">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+  {{/each}}
+  <hr />
+  <div class="subtotal col-md-12">
+    <div class="subtotal-title col-md-6">Subtotal</div>
+    <div class="sign  col-md-2">$</div>
+    <div class="subtotal-number col-md-4" id="total-price">
+    </div>
+    <input type="hidden" id="total-price-to-backend" name="price" value="1" />
+  </div>
+</div>
+
+<div class="shipping-information">
+  <div class="title">Shipping Information</div>
+  <div class="content col-md-12">
+    <div class="name">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required>
+    </div>
+    <div class="phone">
+      <label for="phone">Phone:</label>
+      <input type="tel" name="phone" required>
+    </div>
+    <div class="address">
+      <label for="address">Address:</label>
+      <input type="street-address" name="address" required>
+    </div>
+  </div>
+</div>
+
+<div class="check-btn">
+  <button class="btn btn-secondary" onclick="createOrder()">
+    CheckOut
+  </button>
+  <button class="btn btn-secondary">
+    <a href="javascript:history.back()" style="color:white; text-decoration:none">
+      Cancel
+    </a>
+  </button>
+</div>
+</form>
+
+
+<script>
+  const volPanel = document.querySelector('.shopping-list')
+  volPanel.addEventListener('click', function (event) {
+    if (event.target.matches(".fa-plus-circle") || event.target.matches(".fa-minus-circle")) {
+      const volumeNode = event.target.parentElement.children[0]
+      let vol = Number(volumeNode.value)
+      if (event.target.matches(".fa-plus-circle")) {
+        vol += 1
+      } else {
+        vol -= 1
+        if (vol < 0) {
+          vol = 0
+        }
+      }
+      volumeNode.value = vol
+      sum()
+    }
+  })
+
+  window.addEventListener('load', sum())
+  volPanel.addEventListener('input', event => {
+    sum()
+  })
+
+  function sum() {
+    const price = document.querySelectorAll('#price')
+    const quantity = document.querySelectorAll('#vol')
+    const totalPrice = document.querySelector('#total-price')
+    const priceToBackend = document.querySelector('#total-price-to-backend')
+    let sumPrice = 0
+    for (let i = 0; i < price.length; i++) {
+      sumPrice += Number(price[i].innerText) * Number(quantity[i].value)
+    }
+    totalPrice.innerHTML = `${sumPrice}`
+    priceToBackend.value = sumPrice
+  }
+
+  function deleteOne() {
+    const productId = event.target.matches(".fa-trash-alt") ? event.target.parentElement.value : event.target.value
+    if (productId) {
+      document.order.action = `/orders/create/${productId}?_method=DELETE`
+      document.order.method = "POST"
+      document.order.submit()
+    }
+  }
+
+  function createOrder() {
+    document.order.action = "/orders"
+    document.order.method = "POST"
+    document.order.submit()
+  }
+
+</script>

@@ -62,10 +62,8 @@
   <button class="btn btn-secondary" onclick="updateAll()">
     Update
   </button>
-  <button class="btn btn-secondary">
-    <a href="">
+  <button class="btn btn-secondary" onclick="createOrder()">
       Create Order
-    </a>
   </button>
 </div>
 </div>
@@ -124,5 +122,10 @@
     document.cart.submit()
   }
 
+  function createOrder() {
+    document.cart.action = "/orders/create"
+    document.cart.method = "GET"
+    document.cart.submit()
+  }
 
 </script>
