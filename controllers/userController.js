@@ -223,7 +223,7 @@ const userController = {
         subject: '123 Shopping Mall訂單成立通知信',
         text: `#${order.id}訂單成立，感謝您的訂購。`,
       }
-      transporter.sendMail(mailOptions, (error, info) => {
+      await transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error)
         } else {
