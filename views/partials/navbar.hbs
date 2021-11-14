@@ -14,31 +14,34 @@
   </div>
 
   <div class="link col-md-8 col-sm-8">
-    <button type="button" class="btn btn-secondary">
-      <a href="/admin/products" style="color: white;">
+    <a href="/admin/products" style="color: white;">
+      <button type="button" class="btn btn-secondary">
         Admin
-      </a>
-    </button>
-    <button type="button" class="btn btn-secondary">
-      <a href="/carts" style="color: white;">
+      </button>
+    </a>
+    <a href="/carts" style="color: white;">
+      <button type="button" class="btn btn-secondary">
         Cart
-      </a>
-    </button>
-    <button type="button" class="btn btn-secondary">
-      <a href="/orders" style="color: white;">
+      </button>
+    </a>
+    <a href="/orders" style="color: white;">
+      <button type="button" class="btn btn-secondary">
         Order
-      </a>
-    </button>
-    <button type="button" class="btn btn-secondary">
-      {{#if user}}
-      <a href="/logout" style="color: white;">
+      </button>
+    </a>
+    {{#if user}}
+    <a href="/logout" style="color: white;">
+      <button type="button" class="btn btn-secondary">
         Logout
-      </a>
-      {{else}}
-      <a href="/signin" style="color: white;">
+      </button>
+    </a>
+    {{else}}
+    <a href="/signin" style="color: white;">
+      <button type="button" class="btn btn-secondary">
         Login
-      </a>
-      {{/if}}
+      </button>
+    </a>
+    {{/if}}
     </button>
   </div>
 
