@@ -62,32 +62,27 @@
       <div class="payment-shipping col-md-4">
         <div class="payment-status">
           Payment Status :
-          <select class="form-select" id="payment_status" name="payment_status">
-            <option value="0" {{#ifCond this.payment_status "0" }}selected{{/ifCond}}>
-              not paid
-            </option>
-            <option value="1" {{#ifCond this.payment_status "1" }}selected{{/ifCond}}>
-              paid
-            </option>
-          </select>
+          {{#ifCond this.payment_status "0" }}
+          Not Paid
+          {{/ifCond}}
+           {{#ifCond this.payment_status "1" }}
+          Paid
+          {{/ifCond}}
         </div>
         <div class="shipping-status">
           Shipping Status :
-          <select class="form-select" id="shipping_status" name="shipping_status">
-            <option value="0" {{#ifCond this.shipping_status "0" }}selected{{/ifCond}}>
-              not paid
-            </option>
-            <option value="1" {{#ifCond this.shipping_status "1" }}selected{{/ifCond}}>
-              paid
-            </option>
-          </select>
+          {{#ifCond this.shipping_status "0" }}
+          Not Deliver
+          {{/ifCond}}
+          {{#ifCond this.shipping_status "1" }}
+          Delivered
+          {{/ifCond}}
         </div>
         <div class="update-btn">
-          <button type="submit" class="btn btn-secondary">
-            Payment
-          </button>
+            <button class="btn btn-secondary" onclick="payment()" value="{{this.id}}"> 
+              Payment
+            </button>
           <button class="btn btn-secondary" onclick="deleteOrder()" value="{{this.id}}">
-            {{!-- <input type="hidden" name="orderId" value="{{this.id}}" /> --}}
             Cancel Order
           </button>
         </div>
@@ -114,13 +109,21 @@
   })
 
   function deleteOrder() {
-    if(confirm("Are you sure delete the order?")===true) {
+    if (confirm("Are you sure delete the order?") === true) {
       const orderId = event.target.value
       const form = document.querySelector(`#order${orderId}`)
       form.action = `/orders/${orderId}?_method=DELETE`
       form.method = "POST"
       form.submit()
     }
+  }
+
+  function payment() {
+    const orderId = event.target.value
+    const form = document.querySelector(`#order${orderId}`)
+    form.action = `/orders/${orderId}/payment`
+    form.method = "GET"
+    form.submit()
   }
 
 </script>

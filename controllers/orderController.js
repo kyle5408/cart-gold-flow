@@ -5,6 +5,7 @@ const Cart = db.Cart
 const CartItem = db.CartItem
 const Order = db.Order
 const OrderItem = db.OrderItem
+const payment = require('../services/payment')
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -99,6 +100,19 @@ const orderController = {
     await CartItem.destroy({ where: { ProductId: req.params.id, CartId: cartUser } })
     req.flash('success_messages', 'Delete successful！')
     return res.redirect('/orders/create')
+  },
+
+  //付款頁面
+  getPayment: async (req, res) => {
+    const order = await Order.findByPk(req.params.id, {})
+    const tradeInfo = await payment.getTradeInfo(order.amount, '產品名稱', '123@mail')
+
+    return res.render('payment', { order, tradeInfo })
+  },
+
+  //金流回傳
+  newebayCallback: (req, res) => {
+
   }
 }
 

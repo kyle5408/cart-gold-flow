@@ -79,8 +79,8 @@ router.delete('/admin/products/:id', login.authenticatedAdmin, adminController.d
 //登出
 router.get('/logout', userController.logout)
 
-// //金流
-// router.get('/order/:id/payment',login.authenticated, userController.getPayment)
-// router.post('/newebay/callback', login.authenticated, userController.newebayCallback)
+//金流
+router.get('/orders/:id/payment', login.authenticated, orderController.getPayment)
+router.post('/newebay/callback', login.authenticated, orderController.newebayCallback)
 
 module.exports = router

@@ -25,16 +25,16 @@
     <div class="user col-md-2">{{this.UserId}}</div>
     <div class="payment-status col-md-2">
       {{#ifCond this.payment_status "0" }}
-      not paid
+      Not Paid
       {{else}}
-      paid
+      Paid
       {{/ifCond}}
     </div>
     <div class="shipping-status col-md-2">
       {{#ifCond this.shipping_status "0" }}
-      not paid
+      Not Delivered
       {{else}}
-      paid
+      Delivered
       {{/ifCond}}
     </div>
     <div class="order-detail col-md-2">

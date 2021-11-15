@@ -63,10 +63,10 @@
           Payment Status :
           <select class="form-select" id="payment_status" name="payment_status">
             <option value="0" {{#ifCond order.payment_status "0" }}selected{{/ifCond}}>
-              not paid
+              Not Paid
             </option>
             <option value="1" {{#ifCond order.payment_status "1" }}selected{{/ifCond}}>
-              paid
+              Paid
             </option>
           </select>
         </div>
@@ -74,10 +74,10 @@
           Shipping Status :
           <select class="form-select" id="shipping_status" name="shipping_status">
             <option value="0" {{#ifCond order.shipping_status "0" }}selected{{/ifCond}}>
-              not paid
+              Not Delivered
             </option>
             <option value="1" {{#ifCond order.shipping_status "1" }}selected{{/ifCond}}>
-              paid
+              Delivered
             </option>
           </select>
         </div>
