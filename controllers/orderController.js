@@ -113,8 +113,13 @@ const orderController = {
   },
 
   //金流回傳
-  newebayCallback: (req, res) => {
-
+  newebayCallback: async (req, res) => {
+    const data = JSON.parse(payment.create_mpg_aes_decrypt(req.body.TradeInfo))
+    const order = await Order.findAll({ where: { sn: data['Result'].MerchantOrderNo } })
+    await order[0].update({
+      payment_status: 1
+    })
+    return res.redirect('/orders')
   }
 }
 
