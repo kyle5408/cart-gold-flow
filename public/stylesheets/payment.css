@@ -1,0 +1,54 @@
+.wrap {
+  margin: 0;
+  padding: 0;
+}
+
+.order-items {
+  background-color: #f4f0e6;
+}
+
+.order-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.picture {
+  margin: 1vw;
+}
+
+.picture img {
+  width: 5vw;
+  height: 5vw;
+  max-width: 5vw;
+  max-height: 5vw;
+  border-radius: 20px;
+}
+
+.name-quantity-price {
+  display: flex;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.price {
+  color: #FF2E63;
+  font-weight: bold;
+}
+
+.quantity {
+  font-weight: bold;
+}
+
+.total-amount {
+  color: #FF2E63;
+  font-weight: bold;
+  font-size: 1vw;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}

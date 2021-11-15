@@ -106,10 +106,17 @@ const orderController = {
   getPayment: async (req, res) => {
     const order = await Order.findByPk(req.params.id)
     const tradeInfo = await payment.getTradeInfo(order.amount, '產品名稱', req.user.email)
+    const orderItems = await OrderItem.findAll({ where: { OrderId: req.params.id }, include: [Product] })
+    const orderItem = await orderItems.map(item => ({
+      ...item.dataValues,
+      name: item.Product.dataValues.name,
+      image: item.Product.dataValues.image,
+      price: item.Product.dataValues.price
+    }))
     await order.update({
       sn: tradeInfo.MerchantOrderNo
     })
-    return res.render('payment', { order, tradeInfo })
+    return res.render('payment', { order: order.dataValues, tradeInfo, orderItem })
   },
 
   //金流回傳

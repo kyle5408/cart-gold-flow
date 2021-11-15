@@ -1,16 +1,56 @@
-123
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/payment.css">
 
-{{order.id}}
-{{order.amount}}
+<div class="wrap">
+  <h5>
+    Ready to pay for Order #{{order.id}}...
+  </h5>
+
+  <h3>
+    Please Check Order Items：
+  </h3>
+
+
+
+  <div class="order-items">
+    {{#each orderItem}}
+    <div class="order-item">
+      <div class="picture ">
+        <a href="/products/{{this.ProductId}}">
+          <img src="{{this.image}}" alt="無法顯示圖片，請聯絡管理員">
+        </a>
+      </div>
+      <div class="name-quantity-price col-md-5">
+        <div class="name col-md-4">
+          {{this.name}}
+        </div>
+        <div class="price col-md-4">
+          $ {{this.price}}
+        </div>
+        <div class="quantity col-md-4">
+          x {{this.quantity}}
+        </div>
+
+      </div>
+      <hr />
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="total-amount">
+    Total Amount: ${{order.amount}}
+  </div>
+</div>
 
 <form name='Spgateway' action='{{tradeInfo.PayGateWay}}' method="POST">
-  MerchantID:
-  <input type="text" name="MerchantID" value="{{tradeInfo.MerchantID}}"><br>
-  TradeInfo:
-  <input type="text" name="TradeInfo" value="{{tradeInfo.TradeInfo}}"><br>
-  TradeSha:
-  <input type="text" name="TradeSha" value="{{tradeInfo.TradeSha}}"><br>
-  Version:
-  <input type="text" name="Version" value="{{tradeInfo.Version}}"><br>
+  <input type="hidden" name="MerchantID" value="{{tradeInfo.MerchantID}}">
+  <input type="hidden" name="TradeInfo" value="{{tradeInfo.TradeInfo}}">
+  <input type="hidden" name="TradeSha" value="{{tradeInfo.TradeSha}}">
+  <input type="hidden" name="Version" value="{{tradeInfo.Version}}">
   <button type="submit" class="btn btn-primary">Payment</button>
+  <button class="btn btn-secondary">
+    <a href="javascript:history.back()" style="color:white; text-decoration:none">
+      Cancel
+    </a>
+  </button>
 </form>
