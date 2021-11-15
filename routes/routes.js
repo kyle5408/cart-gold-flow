@@ -6,7 +6,8 @@ const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const userController = require('../controllers/userController')
 const adminController = require('../controllers/adminController')
-const user = require('../models/user')
+const cartController = require('../controllers/cartController')
+const orderController = require('../controllers/orderController')
 
 router.get('/', (req, res) => {
   // res.render('product')
@@ -26,27 +27,27 @@ router.get('/products', login.authenticated, userController.getUserIndex)
 router.get('/products/:id', login.authenticated, userController.getUserProduct)
 
 //使用者購物車頁面
-router.get('/carts', login.authenticated, userController.getUserCart)
+router.get('/carts', login.authenticated, cartController.getUserCart)
 
 //使用者新增至購物車
-router.post('/carts/:id', login.authenticated, userController.postUserCart)
+router.post('/carts/:id', login.authenticated, cartController.postUserCart)
 
 //使用者修改購物車
-router.put('/carts/', login.authenticated, userController.putUserCart)
+router.put('/carts/', login.authenticated, cartController.putUserCart)
 
 //使用者刪除購物車
-router.delete('/carts/:id', login.authenticated, userController.deleteUserCart)
+router.delete('/carts/:id', login.authenticated, cartController.deleteUserCart)
 
 //使用者訂單頁面
-router.get('/orders', login.authenticated, userController.getUserOrder)
+router.get('/orders', login.authenticated, orderController.getUserOrder)
 
 //使用者刪除訂單
-router.delete('/orders/:id', login.authenticated, userController.deleteUserOrder)
+router.delete('/orders/:id', login.authenticated, orderController.deleteUserOrder)
 
 //使用者建立訂單
-router.get('/orders/create', login.authenticated, userController.getUserCreateOrder)
-router.delete('/orders/create/:id', login.authenticated, userController.deleteOrderItem)
-router.post('/orders', login.authenticated, userController.postUserOrder)
+router.get('/orders/create', login.authenticated, orderController.getUserCreateOrder)
+router.delete('/orders/create/:id', login.authenticated, orderController.deleteOrderItem)
+router.post('/orders', login.authenticated, orderController.postUserOrder)
 
 //管理者登入頁面
 router.get('/admin/signin', adminController.signInPage)
@@ -77,5 +78,9 @@ router.delete('/admin/products/:id', login.authenticatedAdmin, adminController.d
 
 //登出
 router.get('/logout', userController.logout)
+
+// //金流
+// router.get('/order/:id/payment',login.authenticated, userController.getPayment)
+// router.post('/newebay/callback', login.authenticated, userController.newebayCallback)
 
 module.exports = router
