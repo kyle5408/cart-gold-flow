@@ -12,12 +12,13 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: '/users/login'
 }))
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
+router.get('/google', passport.authenticate('google', { 
+  scope: ['profile', 'email'] 
+}))
 
-router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function (req, res) {
-    res.redirect('/')
-  })
-
+router.get('/google/callback',passport.authenticate('google', { 
+  successRedirect: '/',
+  failureRedirect: '/users/login'
+  }))
+  
 module.exports = router
