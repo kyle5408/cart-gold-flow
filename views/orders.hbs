@@ -65,7 +65,7 @@
           {{#ifCond this.payment_status "0" }}
           Not Paid
           {{/ifCond}}
-           {{#ifCond this.payment_status "1" }}
+          {{#ifCond this.payment_status "1" }}
           Paid
           {{/ifCond}}
         </div>
@@ -79,12 +79,20 @@
           {{/ifCond}}
         </div>
         <div class="update-btn">
-            <button class="btn btn-secondary" onclick="payment()" value="{{this.id}}"> 
-              Payment
-            </button>
+          {{#ifCond this.payment_status "0" }}
+          <button class="btn btn-secondary" onclick="payment()" value="{{this.id}}">
+            Payment
+          </button>
           <button class="btn btn-secondary" onclick="deleteOrder()" value="{{this.id}}">
             Cancel Order
           </button>
+          {{/ifCond}}
+
+          {{#ifCond this.payment_status "1" }}
+          <button class="btn btn-secondary" onclick="" value="{{this.id}}">
+            Contact Us
+          </button>
+          {{/ifCond}}
         </div>
       </div>
     </div>
@@ -93,20 +101,27 @@
 {{/each}}
 
 <script>
-  const price = document.querySelectorAll('.product-price-number')
-  const quantity = document.querySelectorAll('.product-quantity-number')
-  const totalPrice = document.querySelector('.total-price')
-  const totalQuantity = document.querySelector('.total-quantity')
-  window.addEventListener('load', function sum() {
+  window.addEventListener('load', () => {
+    const order = document.querySelectorAll('.order-body')
+    for (let i = 0; i < order.length; i++) {
+      sum(order[i])
+    }
+  })
+
+  function sum(order) {
     let sumPrice = 0
     let sumQuantity = 0
+    const price = order.querySelectorAll('.product-price-number')
+    const quantity = order.querySelectorAll('.product-quantity-number')
+    const totalPrice = order.querySelector('.total-price')
+    const totalQuantity = order.querySelector('.total-quantity')
     for (let i = 0; i < price.length; i++) {
       sumPrice += Number(price[i].innerText) * Number(quantity[i].innerText)
       sumQuantity += Number(quantity[i].innerText)
     }
     totalPrice.innerHTML = `$ ${sumPrice}`
     totalQuantity.innerHTML = `x ${sumQuantity}`
-  })
+  }
 
   function deleteOrder() {
     if (confirm("Are you sure delete the order?") === true) {
