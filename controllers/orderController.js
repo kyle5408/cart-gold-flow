@@ -104,9 +104,11 @@ const orderController = {
 
   //付款頁面
   getPayment: async (req, res) => {
-    const order = await Order.findByPk(req.params.id, {})
-    const tradeInfo = await payment.getTradeInfo(order.amount, '產品名稱', '123@mail')
-
+    const order = await Order.findByPk(req.params.id)
+    const tradeInfo = await payment.getTradeInfo(order.amount, '產品名稱', req.user.email)
+    await order.update({
+      sn: tradeInfo.MerchantOrderNo
+    })
     return res.render('payment', { order, tradeInfo })
   },
 
